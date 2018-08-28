@@ -4,9 +4,19 @@ variable "region" {
     default = "us-east-1"
 }
 
+variable "nano" {
+    type    = "string"
+    default = "t3.nano"
+}
+
 variable "micro" {
     type    = "string"
     default = "t3.micro"
+}
+
+variable "small" {
+    type = "string"
+    default = "t3.small"
 }
 
 variable "cidr_block_main" {
