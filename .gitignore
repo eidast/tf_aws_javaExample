@@ -1,1 +1,8 @@
+# Credentials
 credentials/aws_access_key
+credentials/tf_aws_javaExample.json
+credentials/tf_aws_javaExample.pem
+
+# IDE Files
+misc/code-project.code-workspace
+.idea/*
