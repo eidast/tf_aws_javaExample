@@ -12,6 +12,7 @@ You should get 2 values:
 Create the following enviroment variables:
 
 AWS_ACCESS_KEY_ID       = Your AWS Access Key
+
 AWS_SECRET_ACCESS_KEY   = Your AWS Secret Access Key
 
 Create a aws group with the policies needed
@@ -38,4 +39,4 @@ aws iam add-user-to-group --group-name terraform_services --user-name tf_aws_jav
 
 Create a key-pair 
 
-aws ec2 create-key-pair --key-name tf_aws_java_example > credentials/tf_aws_javaExample.json
+aws ec2 create-key-pair --key-name tf_aws_javaExample > credentials/tf_aws_javaExample.json

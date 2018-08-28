@@ -4,9 +4,9 @@ variable "region" {
     default = "us-east-1"
 }
 
-variable "ami" {
+variable "micro" {
     type    = "string"
-    default = ""
+    default = "t3.micro"
 }
 
 variable "cidr_block_main" {
@@ -23,9 +23,19 @@ variable "cidr_block_subnet_b" {
     type    = "string"
     default = "10.0.2.0/24"
 }
+
+variable "cidr_block_subnet_admin" {
+    type    = "string"
+    default = "10.0.99.0/24"
+}
 variable "cidr_world" {
     type = "string"
     default = "0.0.0.0/0"
+}
+
+variable "project_key_pair" {
+    type = "string"
+    default = "tf_aws_javaExample"
 }
 
 data "aws_availability_zones" "available" {}

@@ -2,6 +2,7 @@
 credentials/aws_access_key
 credentials/tf_aws_javaExample.json
 credentials/tf_aws_javaExample.pem
+credentials/master_server_id_rsa
 
 # IDE Files
 misc/code-project.code-workspace
