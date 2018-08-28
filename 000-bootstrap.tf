@@ -30,6 +30,17 @@ variable "cidr_world" {
 
 data "aws_availability_zones" "available" {}
 
+data "aws_ami" "centos" {
+  most_recent = true
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["410186602215"] # CentOS.org
+}
+
 provider "aws" {
   region     = "${var.region}"
 }
