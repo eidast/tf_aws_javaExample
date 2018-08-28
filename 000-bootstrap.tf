@@ -23,8 +23,12 @@ variable "cidr_block_subnet_b" {
     type    = "string"
     default = "10.0.2.0/24"
 }
+variable "cidr_world" {
+    type = "string"
+    default = "0.0.0.0/0"
+}
 
-data "aws_availability_zones" "az_available"
+data "aws_availability_zones" "available" {}
 
 provider "aws" {
   region     = "${var.region}"
