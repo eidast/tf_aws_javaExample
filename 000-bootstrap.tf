@@ -61,6 +61,20 @@ data "aws_ami" "centos" {
   owners = ["410186602215"] # CentOS.org
 }
 
+data "aws_ami" "amazon" {
+  most_recent      = true
+
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["amzn-ami-vpc-nat*"]
+  }
+}
+
 provider "aws" {
   region     = "${var.region}"
 }

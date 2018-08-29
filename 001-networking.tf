@@ -16,7 +16,7 @@ resource "aws_subnet" "subnet_admin" {
   map_public_ip_on_launch = true
 
   tags {
-    Name = "main_subnet_a"
+    Name = "main_subnet_admin"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_subnet" "subnet_b" {
   map_public_ip_on_launch = true
 
   tags {
-    Name = "main_subnet_a"
+    Name = "main_subnet_b"
   }
 }
 
@@ -72,5 +72,10 @@ resource "aws_route_table_association" "rt_association_a" {
 
 resource "aws_route_table_association" "rt_association_b" {
   subnet_id = "${aws_subnet.subnet_b.id}"
+  route_table_id = "${aws_route_table.route_table.id}"
+}
+
+resource "aws_route_table_association" "rt_association_admin" {
+  subnet_id = "${aws_subnet.subnet_admin.id}"
   route_table_id = "${aws_route_table.route_table.id}"
 }

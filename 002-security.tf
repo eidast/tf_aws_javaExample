@@ -41,6 +41,9 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 // Security Group Definition
 resource "aws_security_group" "general" {
+  name = "General Security Group"
+  description = "Allow Inbound/Outbound Traffic for All Servers"
+  vpc_id = "${aws_vpc.main.id}"
 
   ingress {
     from_port = 22
@@ -71,7 +74,7 @@ resource "aws_security_group" "application_servers" {
 }
 
 resource "aws_security_group" "web_servers" {
-  name = "WebServerSG"
+  name = "Web Server Security Group"
   description = "Allow Inbound/Outbound Traffic for Web Servers"
   vpc_id = "${aws_vpc.main.id}"
 

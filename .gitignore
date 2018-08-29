@@ -1,7 +1,6 @@
 # Credentials
 credentials/aws_access_key
-credentials/tf_aws_javaExample.json
-credentials/tf_aws_javaExample.pem
+credentials/tf_aws_javaExample.*
 credentials/master_server_id_rsa
 
 # IDE Files

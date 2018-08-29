@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "config" {
-  bucket = "tf_aws_configuration-bucket"
+  bucket = "tf-aws-configuration-bucket"
   acl    = "private"
   region = "${var.region}"
 
