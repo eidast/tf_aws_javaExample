@@ -71,7 +71,7 @@ data "aws_ami" "amazon" {
 
   filter {
     name   = "name"
-    values = ["amzn-ami-vpc-nat*"]
+    values = ["amzn2-ami-hvm-*"]
   }
 }
 
