@@ -24,7 +24,7 @@ resource "aws_instance" "ansible" {
 
 	tags {
 		Name = "ansible master server"
-		Type = "control server"
+		Type = "control server"    
 	}
 
   user_data = "${file("user-data/ansible.sh")}"
