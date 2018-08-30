@@ -3,12 +3,29 @@ resource "aws_instance" "jenkins" {
   instance_type   = "${var.small}"
 
   subnet_id = "${aws_subnet.subnet_admin.id}"
-  security_groups = ["${aws_security_group.general.id}", "${aws_security_group.application_servers.id}"]
+  vpc_security_group_ids = ["${aws_security_group.general.id}", "${aws_security_group.application_servers.id}"]
   key_name = "${var.project_key_pair}"
 
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.id}"
+
+  user_data = "${file("user-data/jenkins.sh")}"
+
   tags {
-    Name = "jenkins server"
+    Name = "jenkins"
     Type = "control server"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo '127.0.0.1 ${self.tags.Name}' | sudo tee -a /etc/hosts",
+      "sudo hostnamectl set-hostname ${self.tags.Name}",
+      # this will update hostname in swarm 
+      #"sudo systemctl restart docker",
+    ]
+  }
+
+  lifecycle {
+    ignore_changes = ["credit_specification.0.cpu_credits"]
   }
 }
 
@@ -17,15 +34,24 @@ resource "aws_instance" "ansible" {
   instance_type = "${var.nano}"
 
   subnet_id = "${aws_subnet.subnet_admin.id}"
-  security_groups = ["${aws_security_group.general.id}"]
+  vpc_security_group_ids = ["${aws_security_group.general.id}"]
   key_name = "${var.project_key_pair}"
 
   iam_instance_profile = "${aws_iam_instance_profile.ec2_profile.id}"
 
 	tags {
-		Name = "ansible master server"
+		Name = "ansible"
 		Type = "control server"    
 	}
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo '127.0.0.1 ${self.tags.Name}' | sudo tee -a /etc/hosts",
+      "sudo hostnamectl set-hostname ${self.tags.Name}",
+      # this will update hostname in swarm 
+      #"sudo systemctl restart docker",
+    ]
+  }
 
   user_data = "${file("user-data/ansible.sh")}"
 
@@ -34,6 +60,12 @@ resource "aws_instance" "ansible" {
     "aws_s3_bucket_object.master_server_id_rsa",
     "aws_instance.jenkins"
   ]
+
+  lifecycle {
+    ignore_changes = ["credit_specification.0.cpu_credits"]
+  }
+
+
 }
 
 /*

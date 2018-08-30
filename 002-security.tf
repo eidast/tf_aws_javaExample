@@ -52,6 +52,13 @@ resource "aws_security_group" "general" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+
   egress {
     from_port = 0
     to_port = 0
@@ -66,9 +73,9 @@ resource "aws_security_group" "application_servers" {
   vpc_id = "${aws_vpc.main.id}"
 
   ingress {
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -79,10 +86,19 @@ resource "aws_security_group" "web_servers" {
   vpc_id = "${aws_vpc.main.id}"
 
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
+/*
+resource "aws_security_group_rule" "internal_traffic" {
+  type = "ingress"
+  from_port = 0
+  to_port   = 65535
+  protocol = "-1"
+  cidr_blocks = ["10.0.0.0/16"]
+}
+*/
