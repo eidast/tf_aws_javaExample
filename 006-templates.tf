@@ -14,8 +14,14 @@ data "template_file" "ssh-config" {
   }
 }
 
-resource "null_resource" "export_ansible_hosts" {
+resource "null_resource" "export_ansible_templates" {
   provisioner "local-exec" {
-    command = "echo '${data.template_file.ansible-hosts.rendered}' > ansible/hosts"
+    command = "echo '${data.template_file.ansible-hosts.rendered}' > ./ansible/hosts"
   }
+
+  provisioner "local-exec" {
+    command = "echo '${data.template_file.ssh-config.rendered}' > ./credentials/config"
+  }
+
+  depends_on = ["aws_instance.ansible"]
 }

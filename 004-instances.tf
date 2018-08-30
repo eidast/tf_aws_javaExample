@@ -15,15 +15,6 @@ resource "aws_instance" "jenkins" {
     Type = "control server"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '127.0.0.1 ${self.tags.Name}' | sudo tee -a /etc/hosts",
-      "sudo hostnamectl set-hostname ${self.tags.Name}",
-      # this will update hostname in swarm 
-      #"sudo systemctl restart docker",
-    ]
-  }
-
   lifecycle {
     ignore_changes = ["credit_specification.0.cpu_credits"]
   }
@@ -44,15 +35,6 @@ resource "aws_instance" "ansible" {
 		Type = "control server"    
 	}
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '127.0.0.1 ${self.tags.Name}' | sudo tee -a /etc/hosts",
-      "sudo hostnamectl set-hostname ${self.tags.Name}",
-      # this will update hostname in swarm 
-      #"sudo systemctl restart docker",
-    ]
-  }
-
   user_data = "${file("user-data/ansible.sh")}"
 
   depends_on = [
@@ -64,8 +46,6 @@ resource "aws_instance" "ansible" {
   lifecycle {
     ignore_changes = ["credit_specification.0.cpu_credits"]
   }
-
-
 }
 
 /*
