@@ -40,7 +40,8 @@ resource "aws_instance" "ansible" {
   depends_on = [
     "aws_s3_bucket.config",
     "aws_s3_bucket_object.master_server_id_rsa",
-    "aws_instance.jenkins"
+    "aws_instance.jenkins",
+    "null_resource.export_ansible_templates"
   ]
 
   lifecycle {

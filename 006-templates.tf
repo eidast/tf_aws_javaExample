@@ -23,5 +23,5 @@ resource "null_resource" "export_ansible_templates" {
     command = "echo '${data.template_file.ssh-config.rendered}' > ./credentials/config"
   }
 
-  depends_on = ["aws_instance.ansible"]
+  depends_on = ["aws_instance.jenkins"]
 }
